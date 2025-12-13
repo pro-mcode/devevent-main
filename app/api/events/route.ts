@@ -88,7 +88,7 @@ export async function GET() {
   try {
     await connectDB();
 
-    const events = await Event.find().sort({ createdAt: -1 }).lean();
+    const events = await Event.find().sort({ createdAt: -1 });
 
     return NextResponse.json(
       { message: "Events fetched successfully", events },
@@ -101,27 +101,3 @@ export async function GET() {
     );
   }
 }
-
-// export async function POST(req: NextRequest) {
-//   try {
-//     await connectDB();
-
-//     const body = await req.json(); // <-- JSON instead of formData()
-
-//     const createdEvent = await Event.create(body);
-
-//     return NextResponse.json(
-//       { message: "Event created successfully", event: createdEvent },
-//       { status: 201 }
-//     );
-//   } catch (e) {
-//     console.error(e);
-//     return NextResponse.json(
-//       {
-//         message: "Event Creation Failed",
-//         error: e instanceof Error ? e.message : "Unknown",
-//       },
-//       { status: 500 }
-//     );
-//   }
-// }
