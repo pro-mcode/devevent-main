@@ -3,10 +3,32 @@
 import Event from "@/database/event.model";
 import connectDB from "@/lib/mongodb";
 
+export const getEvents = async () => {
+  try {
+    await connectDB();
+    return await Event.find().sort({ createdAt: -1 }).lean();
+  } catch {
+    return [];
+  }
+};
+
+export const getEventBySlug = async (slug: string) => {
+  try {
+    await connectDB();
+    const sanitizedSlug = slug?.trim().toLowerCase();
+    if (!sanitizedSlug) return null;
+
+    return await Event.findOne({ slug: sanitizedSlug }).lean();
+  } catch {
+    return null;
+  }
+};
+
 export const getSimilarEventsBySlug = async (slug: string) => {
   try {
     await connectDB();
     const event = await Event.findOne({ slug });
+    if (!event) return [];
 
     return await Event.find({
       _id: { $ne: event._id },
