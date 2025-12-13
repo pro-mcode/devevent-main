@@ -27,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${schibstedGrotesk.variable} ${martianMono.variable} antialiased`}
+        className={
+          `${schibstedGrotesk.variable} ${martianMono.variable} antialiased` +
+          "scroll-smooth"
+        }
       >
         <Navbar />
         <div className="absolute inset-0 top-0 min-h-screen z-[-1]">
